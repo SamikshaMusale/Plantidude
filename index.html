@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="Images/plant logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://www.gstatic.com/firebasejs/12.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.0.0/firebase-auth-compat.js"></script>
+    <link rel="stylesheet" href="src/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" integrity="sha512-XcIsjKMcuVe0Ucj/xgIXQnytNwBttJbNjltBV18IOnru2lDPe9KRRyvCXw6Y5H415vbBLRm8+q6fmLUU7DfO6Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=search" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/> 
+    <title>Plantitude</title>
+  </head>
+  <body class="bg-green-950 text-white font-jost tracking-wider">
+    <!-- header -->
+    <header id="navbar" class="bg-green-950 fixed w-full top-0 left-0 z-50">
+      <nav class="container flex items-center justify-between h-16 sm:h-20">
+        <div class="logo-name flex ml-8 sm:ml-20 space-x-2">
+          <img src="Images/flowers-pot-and-plant-pot-illustration-design-green-tree-on-pot-logo-design-free-vector-removebg-preview.png" alt="" class="w-12 h-12">
+          <div class="font-lobster text-xl sm:text-3xl mt-1.5">Plantitude</div>
+        </div>
+
+        <div id="nav-menu" class="absolute top-0 left-[-100%] min-h-[80vh] w-full bg-green-950/80 backdrop-blur-sm flex items-center justify-center duration-300 overflow-hidden lg:static lg:min-h-fit lg:bg-transparent lg:w-auto">
+          <ul class="flex flex-col items-center gap-8 lg:flex-row mr-20">
+            <div class="w-max flex items-center p-2 rounded-full bg-green-100 text-black">
+              <span class="material-symbols-outlined cursor-pointer" id="searchBtn">search</span>
+              <input type="search" placeholder="Search" id="searchInput" class="mx-2 outline-none border-none">
+            </div>
+            <div id="plant-results" class="mt-4"></div>
+            <li>
+              <a href="#home" class="nav-link text-lg font-bold duration-300 hover:text-yellow-500">Home</a>
+            </li>
+            <li>
+              <a href="#about" class="nav-link text-lg font-bold duration-300 hover:text-yellow-500">About</a>
+            </li>
+            <li>
+              <a href="#medicure" class="nav-link text-lg font-bold duration-300 hover:text-yellow-500">Medicure</a>
+            </li>
+            <li>
+              <a href="#review" class="nav-link text-lg font-bold duration-300 hover:text-yellow-500">Review</a>
+            </li>
+            <li>
+              <a id="login-link" href="login.html" class="nav-link text-lg font-bold duration-300 hover:text-yellow-500">Login</a>
+            </li>
+            <li id="account-link" class="hidden -mt-8 ml-0.5 lg:-ml-8 lg:mt-0">
+              <a href="#" class="nav-link text-lg font-bold duration-300 hover:text-yellow-500">My Account</a>
+            </li>
+            <li id="logout-link" class="hidden">
+              <button class="nav-link text-lg font-bold duration-300 hover:text-yellow-500 cursor-pointer">Logout</button>
+            </li>
+
+          </ul>
+
+          <div class="absolute bottom-0 -right-10 opacity-90 lg:hidden">
+            <img src="Images/leaf-1.png" alt="leaf_image" class="w-32">
+          </div>
+
+          <div class="absolute -top-5 left-0 rotate-90 opacity-90 lg:hidden">
+            <img src="Images/leaf-2.png" alt="leaf_image" class="w-32">
+          </div>
+        </div>
+
+        <div class="text-xl sm:text-3xl cursor-pointer z-50 lg:hidden mr-8 sm:-mr-8">
+          <i id="hamburger" class="ri-menu-4-line"></i>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <!-- home -->
+      <section id="home" class="relative py-20 md:py-28">
+        <div class="container">
+          <!-- blob 1 -->
+          <div class="w-64 h-64 bg-green-800 rounded-full blur-3xl -z-10 opacity-40 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
+
+          <!-- blob 2 -->
+          <div class="w-64 h-64 bg-green-800 rounded-full blur-3xl -z-10 opacity-40 absolute right-0 bottom-0"></div>
+
+          <div class="flex flex-col items-center gap-5 lg:flex-row">
+            <!-- content -->
+            <div class="w-full space-y-5 lg:w-1/2 px-8 sm:px-20">
+              <h1 class="text-3xl md:text-4xl xl:text-5xl font-bold">
+                <span class="text-yellow-500">Plants</span> make a
+                <br>
+                positive
+                <span class="text-yellow-500">impact</span> on
+                <br>
+                your environment
+              </h1>
+
+              <p class="text-slate-300 font-lobster">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil nisi nobis vero dolor ducimus totam soluta veniam, consequatur, ipsa distinctio iure nam adipisci beatae animi quod reprehenderit eveniet vel saepe!</p>
+
+              <!-- buttons -->
+              <div class="flex flex-col gap-2 sm:flex-row md:gap-4 lg:pt-5 xl:pt-10">
+                <button class="btn border border-yellow-500 bg-yellow-500 rounded-md px-5 py-2 duration-300 hover:opacity-90 cursor-pointer">
+                  <span class="font-bold">Shop Now</span>
+                  <i class="ri-leaf-line"></i>
+                </button>
+                <button class="btn border border-yellow-500 rounded-md px-5 py-2 duration-300 hover:bg-yellow-500 opacity-90 cursor-pointer">
+                  <span class="font-bold">Info Bot</span>
+                  <i class="ri-customer-service-fill"></i>
+                </button>
+              </div>
+
+              <p class="text-xs font-lobster text-slate-300">You will get 30 days free trial</p>
+
+              <div class="flex items-center gap-5 text-lg lg:pt-10">
+                <i class="text-xl ri-facebook-fill text-slate-300 hover:text-blue-600 cursor-pointer duration-300"></i>
+                <i class="text-xl ri-twitter-x-line text-slate-300 hover:text-black cursor-pointer duration-300"></i>
+                <i class="text-xl ri-instagram-line text-slate-300 hover:text-pink-600 cursor-pointer duration-300"></i>
+                <i class="text-xl ri-linkedin-fill text-slate-300 hover:text-blue-600 cursor-pointer duration-300"></i>
+              </div>
+            </div>
+
+            <!-- image -->
+            <div class="w-full relative lg:w-1/2">
+              <img src="Images/home.png" alt="home_image">
+
+              <!-- leaf -->
+              <div class="absolute -top-10 right-0 opacity-30 xl:top-5 animate-move">
+                <i class="ri-leaf-line text-6xl text-yellow-500"></i>
+              </div>
+
+              <!-- flower -->
+              <div class="absolute bottom-0 left-0 opacity-30 xl:bottom-12 animate-rotate">
+                <i class="ri-flower-line text-6xl text-yellow-500"></i>
+              </div>
+
+              <!-- plant -->
+              <div class="hidden absolute -top-8 -left-5 opacity-30 lg:block animate-scaleUp">
+                <i class="ri-plant-line text-6xl text-yellow-500"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- services -->
+      <div class="bg-white text-green-900 p-20">
+        <div class="container w-full grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <!-- card 1 -->
+          <div class="border border-green-900 p-5 cursor-pointer rounded-md hover:shadow-2xl hover:-translate-y-1 duration-300 space-y-5">
+            <div class="flex items-center gap-5">
+              <i class="ri-truck-line text-3xl md:text-4xl xl:text-5xl"></i>
+              <p class="md:text-lg font-bold">Fast <br> Delivery</p>
+            </div>
+            <p class="font-lobster">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut blanditiis sit saepe. Non, quam dolorem?</p>
+          </div>
+
+          <!-- card 2 -->
+          <div class="border border-green-900 p-5 cursor-pointer rounded-md hover:shadow-2xl hover:-translate-y-1 duration-300 space-y-5">
+            <div class="flex items-center gap-5">
+              <i class="ri-customer-service-line text-3xl md:text-4xl xl:text-5xl"></i>
+              <p class="md:text-lg font-bold">Great Customer <br> Service</p>
+            </div>
+            <p class="font-lobster">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut blanditiis sit saepe. Non, quam dolorem?</p>
+          </div>
+
+          <!-- card 3 -->
+          <div class="border border-green-900 p-5 cursor-pointer rounded-md hover:shadow-2xl hover:-translate-y-1 duration-300 space-y-5">
+            <div class="flex items-center gap-5">
+              <i class="ri-plant-line text-3xl md:text-4xl xl:text-5xl"></i>
+              <p class="md:text-lg font-bold">Original <br> Plants</p>
+            </div>
+            <p class="font-lobster">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut blanditiis sit saepe. Non, quam dolorem?</p>
+          </div>
+
+          <!-- card 4 -->
+          <div class="border border-green-900 p-5 cursor-pointer rounded-md hover:shadow-2xl hover:-translate-y-1 duration-300 space-y-5">
+            <div class="flex items-center gap-5">
+              <i class="ri-money-dollar-circle-line text-3xl md:text-4xl xl:text-5xl"></i>
+              <p class="md:text-lg font-bold">Affordable <br> Price</p>
+            </div>
+            <p class="font-lobster">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut blanditiis sit saepe. Non, quam dolorem?</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- about us -->
+      <section id="about" class="relative overflow-hidden mb-8">
+        <div class="absolute -top-8 -right-12 opacity-50">
+          <img src="Images/leaf-3.png" alt="leaf_image" class="w-40 md:w-52 xl:w-64">
+        </div>
+
+        <div class="flex flex-col items-center gap-3 text-center mb-10 md:mb-20">
+          <h2 class="font-lobster text-yellow-500 text-2xl md:text-3xl xl:text-4xl mt-20">About Us</h2>
+          <p class="max-w-2xl">Follow instructions for more</p>
+        </div>
+
+        <div class="container space-y-10 xl:space-y-0">
+          <!-- item 1 -->
+          <div class="flex flex-col items-center lg:flex-row gap-5">
+            <!-- image -->
+            <div class="w-full lg:w-1/2">
+              <img src="Images/plant-1.png" alt="about_image" class="w-full sm:w-2/3 lg:w-full xl:w-2/3 mx-auto">
+            </div>
+
+            <!-- content -->
+            <div class="w-full lg:w-1/2">
+              <div class="px-8 lg:px-20 space-y-5">
+                <h3 class="text-xl md:text-2xl xl:text-3xl">
+                  Make your <span class="text-yellow-500">organic</span> <br> garden
+                </h3>
+                <p class="text-slate-300 font-lobster">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quaerat doloremque, ullam quod iusto odio a quia at, adipisci sed odit suscipit? Odit dicta expedita quisquam sunt in eveniet ducimus enim non officiis est explicabo veritatis exercitationem totam eligendi, quos atque? Id delectus ducimus beatae velit temporibus, odit reiciendis commodi aspernatur.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- item 2 -->
+          <div class="flex flex-col items-center lg:flex-row-reverse gap-5">
+            <!-- image -->
+            <div class="w-full lg:w-1/2">
+              <img src="Images/plant-2.png" alt="about_image" class="w-full sm:w-2/3 lg:w-full xl:w-2/3 mx-auto">
+            </div>
+
+            <!-- content -->
+            <div class="w-full lg:w-1/2">
+              <div class="px-8 lg:px-20 space-y-5">
+                <h3 class="text-xl md:text-2xl xl:text-3xl">
+                  Come with us <span class="text-yellow-500">grow up</span> <br> your plant
+                </h3>
+                <p class="text-slate-300 font-lobster">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quaerat doloremque, ullam quod iusto odio a quia at, adipisci sed odit suscipit? Odit dicta expedita quisquam sunt in eveniet ducimus enim non officiis est explicabo veritatis exercitationem totam eligendi, quos atque? Id delectus ducimus beatae velit temporibus, odit reiciendis commodi aspernatur.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- medicure -->
+      <section id="medicure" class="bg-green-900 pb-20">
+        <div class="flex flex-col items-center gap-3 text-center mb-40 md:mb-28">
+          <h2 class="font-lobster text-yellow-500 text-2xl md:text-3xl xl:text-4xl mt-28">Your Choice Plant</h2>
+          <p class="max-w-2xl">Follow instructions for more</p>
+        </div>
+
+        <div class="container px-20 mt-44 w-full grid grid-cols-1 gap-x-8 gap-y-32 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <!-- card 1 -->
+          <div class="bg-green-950 p-10 pt-24 rounded-md relative">
+            <img src="Images/cart-1.png" alt="popular_image" class="w-56 absolute -top-5 left-1/2 transform -translate-x-1/2 -translate-y-1/2 duration-500 hover:-top-8">
+            <p class="mx-4 italic">Nephrolepis exaltata</p>
+            <h3 class="text-xl md:text-2xl xl:text-3xl mx-4">Boston Fern</h3>
+
+            <div class="mx-4 text-yellow-500 text-xs py-3">
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-half-fill"></i>
+              <i class="ri-star-line text-gray-400"></i>
+              <i class="ri-star-line text-gray-400"></i>
+            </div>
+
+            <div class="mx-4 flex items-center justify-between">
+              <p class="text-xl">$5</p>
+              <button class="bg-yellow-500 px-2 py-1 rounded-sm text-xl">
+                <i class="ri-shopping-cart-fill"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- card 2 -->
+          <div class="bg-green-950 p-10 pt-24 rounded-md relative">
+            <img src="Images/cart-2.png" alt="popular_image" class="w-56 absolute -top-5 left-1/2 transform -translate-x-1/2 -translate-y-1/2 duration-500 hover:-top-8">
+            <p class="mx-4 italic">Nephrolepis exaltata</p>
+            <h3 class="text-xl md:text-2xl xl:text-3xl mx-4">Boston Fern</h3>
+
+            <div class="mx-4 text-yellow-500 text-xs py-3">
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-half-fill"></i>
+              <i class="ri-star-line text-gray-400"></i>
+              <i class="ri-star-line text-gray-400"></i>
+            </div>
+
+            <div class="mx-4 flex items-center justify-between">
+              <p class="text-xl">$5</p>
+              <button class="bg-yellow-500 px-2 py-1 rounded-sm text-xl">
+                <i class="ri-shopping-cart-fill"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- card 3 -->
+          <div class="bg-green-950 p-10 pt-24 rounded-md relative">
+            <img src="Images/cart-3.png" alt="popular_image" class="w-56 absolute -top-5 left-1/2 transform -translate-x-1/2 -translate-y-1/2 duration-500 hover:-top-8">
+            <p class="mx-4 italic">Nephrolepis exaltata</p>
+            <h3 class="text-xl md:text-2xl xl:text-3xl mx-4">Boston Fern</h3>
+
+            <div class="mx-4 text-yellow-500 text-xs py-3">
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-half-fill"></i>
+              <i class="ri-star-line text-gray-400"></i>
+              <i class="ri-star-line text-gray-400"></i>
+            </div>
+
+            <div class="mx-4 flex items-center justify-between">
+              <p class="text-xl">$5</p>
+              <button class="bg-yellow-500 px-2 py-1 rounded-sm text-xl">
+                <i class="ri-shopping-cart-fill"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- card 4 -->
+          <div class="bg-green-950 p-10 pt-24 rounded-md relative">
+            <img src="Images/cart-4.png" alt="popular_image" class="w-56 absolute -top-5 left-1/2 transform -translate-x-1/2 -translate-y-1/2 duration-500 hover:-top-8">
+            <p class="mx-4 italic">Nephrolepis exaltata</p>
+            <h3 class="text-xl md:text-2xl xl:text-3xl mx-4">Boston Fern</h3>
+
+            <div class="mx-4 text-yellow-500 text-xs py-3">
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-half-fill"></i>
+              <i class="ri-star-line text-gray-400"></i>
+              <i class="ri-star-line text-gray-400"></i>
+            </div>
+
+            <div class="mx-4 flex items-center justify-between">
+              <p class="text-xl">$5</p>
+              <button class="bg-yellow-500 px-2 py-1 rounded-sm text-xl">
+                <i class="ri-shopping-cart-fill"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- review -->
+      <section id="review" class="mb-20 md:mb-28 relative overflow-hidden">
+
+      <div class="absolute -top-8 -left-12 opacity-50">
+        <img src="Images/leaf-4.png" alt="leaf_image" class="w-40 md:w-52 xl:w-64">
+      </div>
+
+        <div class="flex flex-col items-center gap-3 text-center mb-10 md:mb-20">
+          <h2 class="font-lobster text-yellow-500 text-2xl md:text-3xl xl:text-4xl mt-20">Customer Review</h2>
+          <p class="max-w-2xl mb-16">Follow instructions for more</p>
+        </div>
+        
+        <div class="container px-8 sm:px-20">
+          <div class="swiper py-12">
+            <ul class="swiper-wrapper">
+              <li class="swiper-slide">
+                <div class="flex flex-col gap-5 bg-green-900 rounded-md p-6">
+                  <p class="font-lobster">I’m incredibly impressed with Plantitude! The plant details are accurate, easy to understand, and beautifully presented. The image search works flawlessly, making it simple to identify plants instantly and learn how to care for them.</p>
+                  <div class="flex items-center">
+                    <img src="Images/review-1.jpg" alt="review_image" class="w-12 h-12 rounded-full">
+                    <div class="ml-2">
+                      <p class="text-yellow-500 uppercase">Test 01</p>
+                      <p>Botanist</p>
+                    </div>
+                    <i class="ri-double-quotes-r text-4xl ml-auto"></i>
+                  </div>
+                </div>
+              </li>
+
+              <li class="swiper-slide">
+                <div class="flex flex-col gap-5 bg-green-900 rounded-md p-6">
+                  <p class="font-lobster">Plantitude has truly transformed how I care for my plants. The guides are thorough, friendly, and reliable. Image recognition is an absolute game changer! It’s my go-to tool whenever I have plant-related questions, issues, or problems.</p>
+                  <div class="flex items-center">
+                    <img src="Images/review-2.jpg" alt="review_image" class="w-12 h-12 rounded-full">
+                    <div class="ml-2">
+                      <p class="text-yellow-500 uppercase">Test 02</p>
+                      <p>Gardener</p>
+                    </div>
+                    <i class="ri-double-quotes-r text-4xl ml-auto"></i>
+                  </div>
+                </div>
+              </li>
+
+              <li class="swiper-slide">
+                <div class="flex flex-col gap-5 bg-green-900 rounded-md p-6">
+                  <p class="font-lobster">I love using Plantitude every single day. Whether I’m searching by name or image, it never fails to give me accurate and helpful results. The design is elegant, and the plant care tips are always genuinely useful and practical.</p>
+                  <div class="flex items-center">
+                    <img src="Images/review-3.jpg" alt="review_image" class="w-12 h-12 rounded-full">
+                    <div class="ml-2">
+                      <p class="text-yellow-500 uppercase">Test 03</p>
+                      <p>Plant Enthusiast</p>
+                    </div>
+                    <i class="ri-double-quotes-r text-4xl ml-auto"></i>
+                  </div>
+                </div>
+              </li>
+
+              <li class="swiper-slide">
+                <div class="flex flex-col gap-5 bg-green-900 rounded-md p-6">
+                  <p class="font-lobster">This platform is simply outstanding. I’ve used many plant apps, but none compare in quality and reliability. The combination of plant details, care guides, and quick image search saves me valuable time while keeping my plants healthy and thriving.</p>
+                  <div class="flex items-center">
+                    <img src="Images/review-4.jpg" alt="review_image" class="w-12 h-12 rounded-full">
+                    <div class="ml-2">
+                      <p class="text-yellow-500 uppercase">Test 04</p>
+                      <p>Landscape Designer</p>
+                    </div>
+                    <i class="ri-double-quotes-r text-4xl ml-auto"></i>
+                  </div>
+                </div>
+              </li>
+
+              <li class="swiper-slide">
+                <div class="flex flex-col gap-5 bg-green-900 rounded-md p-6">
+                  <p class="font-lobster">Plantitude feels like a plant lover’s dream. Searching for plants is fast, and uploading a photo gives instant identification. The tips are detailed yet easy to follow, making plant care fun, stress-free, and truly rewarding every day.</p>
+                  <div class="flex items-center">
+                    <img src="Images/review-1.jpg" alt="review_image" class="w-12 h-12 rounded-full">
+                    <div class="ml-2">
+                      <p class="text-yellow-500 uppercase">Test 05</p>
+                      <p>Hobbyist</p>
+                    </div>
+                    <i class="ri-double-quotes-r text-4xl ml-auto"></i>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- footer -->
+      <footer class="bg-yellow-100 text-green-950 pt-20 mt-36 md:mt-40 pb-10 md:py-28 relative px-8 lg:px-20">
+        <!-- newsletter -->
+        <div class="container text-white absolute top-0 left-0 right-0 -translate-y-1/2 mx-auto w-[25rem] sm:w-[35rem] md:w-[72rem] lg:w-[82rem]">
+          <div class="bg-green-900 px-10 pt-5 pb-10 space-y-5 rounded-md">
+            <h3 class="text-xl md:text-2xl xl:text-3xl"><span class="text-yellow-500">Subscribe</span> to our newsletter</h3>
+            <div class="flex flex-col md:flex-row gap-3">
+              <input type="email" placeholder="Your Email Address" class="w-full px-5 py-3 bg-green-100 text-green-900 rounded-md outline-none">
+              <button class="flex items-center justify-center gap-1 bg-green-950 px-[3.2rem] py-[0.9rem] rounded-md hover:opacity-80 duration-300">
+                <span>Subscribe</span>
+                <i class="ri-send-plane-2-fill"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- social icon -->
+        <div class="container mt-16 mb-10 px-8 lg:px-20">
+          <div class="border-b bg-green-500 relative">
+            <div class="absolute top-0 transform -translate-y-1/2 left-0 right-0 max-w-36 mx-auto">
+              <div class="bg-yellow-100 text-lg text-center space-x-2">
+                <i class="text-xl ri-facebook-fill hover:text-blue-600 cursor-pointer duration-300"></i>
+                <i class="text-xl ri-twitter-x-line hover:text-orange-500 cursor-pointer duration-300"></i>
+                <i class="text-xl ri-instagram-line hover:text-pink-600 cursor-pointer duration-300"></i>
+                <i class="text-xl ri-linkedin-fill hover:text-blue-600 cursor-pointer duration-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- content -->
+        <div class="container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 text-center md:text-start">
+          <!-- item 1 -->
+          <div>
+            <div class="text-7xl text-green-700 text-center inline-block">
+              <i class="ri-leaf-fill"></i>
+              <p class="font-lobster text-2xl sm:text-3xl">Plantitude</p>
+            </div>
+          </div>
+
+          <!-- item 2 -->
+          <div>
+            <p class="mb-5 font-bold text-xl">Quick Link</p>
+            <div class="flex flex-col gap-1">
+              <a href="#">Plants</a>
+              <a href="#">Flowers</a>
+              <a href="#">Gardening</a>
+              <a href="#">Seeds</a>
+              <a href="#">Shipping</a>
+            </div>
+          </div>
+
+          <!-- item 3 -->
+          <div>
+            <p class="mb-5 font-bold text-xl">Popular Services</p>
+            <div class="flex flex-col gap-1">
+              <a href="#">Tree Planting</a>
+              <a href="#">Grass Cutting</a>
+              <a href="#">Weeds Control</a>
+              <a href="#">Project</a>
+            </div>
+          </div>
+
+          <!-- item 4 -->
+          <div>
+            <p class="mb-5 font-bold text-xl">Contact Us</p>
+            <div class="flex flex-col gap-1">
+              <a href="tel:+918411096927">+91 84110 96927</a>
+              <a href="mailto:asdfghjklqw.1234@gmail.com">asdfghjklqw.1234@gmail.com</a>
+              <br>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, aliquid?</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- copyright -->
+        <div class="container">
+          <p class="text-center mt-10 opacity-50">Copyright &#xA9; asdfghjklqw.1234@gmail.com | All rights reserved</p>
+        </div>
+
+        <!-- floral image -->
+        <div class="absolute bottom-0 left-0 opacity-20 pointer-events-none">
+          <img src="Images/floral-1.png" alt="floral_image" class="w-full lg:w-1/2">
+        </div>
+      </footer>
+    </main>
+  <script src="https://cdn.botpress.cloud/webchat/v3.0/inject.js"></script>
+  <script src="https://files.bpcontent.cloud/2025/07/10/14/20250710142008-FNEKL4BX.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="plant.js"></script>
+  <script src="login.js"></script>
+  <script src="main.js"></script>
+  </body>
+</html>

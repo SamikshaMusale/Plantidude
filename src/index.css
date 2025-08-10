@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-jost:"Jost", sans-serif;
+  --font-lobster:"Lobster", sans-serif;
+  --animate-move: move 3s linear infinite;
+
+  @keyframes move {
+    50% {
+      transform: translateY(-1rem);
+    }
+  }
+
+  --animate-rotate: rotate 15s linear infinite;
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  --animate-scaleUp: scaleUp 3s linear infinite;
+
+  @keyframes scaleUp {
+    0% {
+      transform: scale(0.8);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(0.8);
+    }
+  }
+}
+
+
+.swiper-pagination-bullet {
+    background-color: #167a40 !important;
+    opacity: 1 !important;
+    width: 12px;
+    height: 12px;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: oklch(72.3% 0.219 149.579) !important;
+}
