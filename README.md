@@ -1,4 +1,4 @@
-# **🌿 Plantitude – All-in-One Plant Care & Discovery Platform**
+# **🌿Plantitude – Discover and Care for Plants Online**
 
 An all-in-one platform designed to make plant care and discovery effortless. It empowers users to search plants by name, access detailed care guides, and explore plant-based medicines. Future enhancements include image-based search and integrated plant shopping, ensuring a seamless, enriching experience for plant lovers of all kinds.
 
